@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <input placeholder="input first number" type="number" id="num1" />
+    <input placeholder="input second number" type="number" id="num2" />
+    <button onclick="{logValue()}">Get Result</button>
+    <div id="result"></div>
+    <script type="module">
+      import init, { add } from "./pkg/webcontainer_core.js";
+      // Initialize the WebAssembly module first
+      await init();
+      const logValue = async () => {
+        let num1 = document.getElementById("num1").value;
+        let num2 = document.getElementById("num2").value;
+        await init();
+
+        // let ans = add(num1, num2);
+        // Convert input values to numbers
+        num1 = Number(num1);
+        num2 = Number(num2);
+
+        let ans = add(num1, num2);
+        let resdiv = document.getElementById("result");
+        resdiv.innerHTML = ans;
+      };
+
+      // Make logValue globally accessible
+      window.logValue = logValue;
+    </script>
+  </body>
+</html>
